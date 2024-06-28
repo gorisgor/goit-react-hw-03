@@ -1,33 +1,27 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { trimValues } from "../../helpers/trim";
 import css from "./ContactForm.module.css";
 import * as Yup from "yup";
 
 const contactSchema = Yup.object().shape({
   username: Yup.string()
     .trim()
-    .min(3, "Minimun 3 letters")
+    .min(3, "Minimum 3 letters")
     .max(30, "Maximum 30 letters")
     .required("This field is required"),
-  phonenumber: Yup.string().min(9).required("A phone number is required"),
+  phonenumber: Yup.string()
+    .min(9, "Minimum 9 digits")
+    .required("A phone number is required"),
 });
 
 export default function ContactForm({ addContact }) {
   const handleSubmit = (values, actions) => {
-    const trimmedValues = trimValues(values);
-
-    addContact(trimmedValues);
+    addContact({
+      id: Date.now().toString(),
+      name: values.username,
+      number: values.phonenumber,
+    });
     actions.resetForm();
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onAdd({
-  //     id: Date.now(),
-  //     text: e.target.elements.text.value,
-  //   });
-  //   e.target.reset();
-  // };
 
   return (
     <Formik

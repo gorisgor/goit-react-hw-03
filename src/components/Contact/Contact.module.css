@@ -1,9 +1,9 @@
 .container {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  gap: 20px;
-  max-width: 400px;
+  padding: 5px;
+  gap: 10px;
+  max-width: 380px;
   border: 1px solid black;
   border-radius: 5px;
 }
@@ -15,8 +15,8 @@
 }
 
 .btn {
-  min-width: 69px;
-  height: 26px;
+  min-width: 49px;
+  height: 20px;
   font-size: 18px;
   border: none;
   background-color: gray;

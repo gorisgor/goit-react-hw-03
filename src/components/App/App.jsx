@@ -8,21 +8,28 @@ import css from "./App.module.css";
 
 export default function App() {
   const [contacts, setContacts] = useState(initialContacts);
+  const [search, setSearch] = useState("");
 
   const addContact = (newContact) => {
     setContacts((prevContacts) => [...prevContacts, newContact]);
   };
 
   const onDelete = (contactId) => {
-    console.log(contactId);
+    setContacts((prevContacts) =>
+      prevContacts.filter((contact) => contact.id !== contactId)
+    );
   };
+
+  const shownContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className={css.container}>
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
-      <SearchBox />
-      <ContactList contacts={contacts} />
+      <SearchBox value={search} onSearch={setSearch} />
+      <ContactList contacts={shownContacts} onDelete={onDelete} />
     </div>
   );
 }
