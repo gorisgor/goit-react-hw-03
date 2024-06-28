@@ -28,8 +28,8 @@ export default function ContactForm({ addContact }) {
   return (
     <Formik
       initialValues={{
-        contact: "",
-        number: "",
+        username: "",
+        phonenumber: "",
       }}
       onSubmit={handleSubmit}
       validationSchema={contactSchema}
