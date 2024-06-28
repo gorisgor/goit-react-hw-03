@@ -6,9 +6,21 @@ import { useEffect, useState } from "react";
 
 import css from "./App.module.css";
 
+const getInitialContacts = () => {
+  const savedContacts = localStorage.getItem("contacts");
+  if (savedContacts !== null) {
+    return JSON.parse(savedContacts);
+  }
+  return initialContacts;
+};
+
 export default function App() {
-  const [contacts, setContacts] = useState(initialContacts);
+  const [contacts, setContacts] = useState(getInitialContacts);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const addContact = (newContact) => {
     setContacts((prevContacts) => [...prevContacts, newContact]);
